@@ -150,6 +150,7 @@
   }
   .login-logo {
       /* background: url(../logo/logo2.png) no-repeat center; */
+      background-image: url("../../../public/Images/logo.png") no-repeat center;
       background-size: contain;
       height: 80px;
   }
@@ -392,6 +393,7 @@
   }
   .bg-login {
       /* background: url(../logo/bg-login.png) no-repeat center; */
+      background-image: url("../../../public/Images/layout.jpg");
       background-size: cover;
       flex: 1 1 60%;
       max-width: 900px;
