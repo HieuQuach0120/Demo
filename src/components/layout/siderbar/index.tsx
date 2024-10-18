@@ -25,13 +25,17 @@ export default function SidebarComponent() {
           </NavLink>
         </li>
         {/* {checkPermission(ROLE.ADMIN) && ( */}
-        <>
-          <li>
-            <NavLink to={"/detail"}>
-              <i className="pi pi-info-circle"></i> Xem chi tiết
-            </NavLink>
-          </li>
-          {/* <li>
+        <li>
+          <NavLink to={"/detail"}>
+            <i className="pi pi-info-circle"></i> Xem chi tiết
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to={"/member"}>
+            <i className="pi pi-users"></i> Thành viên
+          </NavLink>
+        </li>
+        {/* <li>
             <NavLink to={"/membership"}>
               <i className="pi pi-user-plus font-size-icon"></i> Membership
               Management
@@ -43,7 +47,6 @@ export default function SidebarComponent() {
               Management
             </NavLink>
           </li> */}
-        </>
         {/* )} */}
       </ul>
       <ul className="nav-menu logout">

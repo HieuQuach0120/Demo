@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 // import counterReducer from '../features/counter/counterSlice'
+import memberReducer from "../../src/app/member/member.slice";
 
 export const store = configureStore({
   reducer: {
-    // counter: counterReducer,
+    member: memberReducer,
   },
 });
 

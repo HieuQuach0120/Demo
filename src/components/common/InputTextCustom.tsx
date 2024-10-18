@@ -24,12 +24,12 @@ export default function InputTextCustom({
 }: props) {
   return (
     <>
-      {label &&
+      {label && (
         <label className="label-field">
           {label}
           {required && <p className="px-1 text-danger ">*</p>}
         </label>
-      }
+      )}
       <InputText
         className={classNames("input-field", { "p-invalid": isValidate })}
         value={value}

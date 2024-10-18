@@ -436,3 +436,7 @@
 .p-calendar {
   width: 100%;
 }
+
+.p-invalid {
+  border: 1px solid red;
+}

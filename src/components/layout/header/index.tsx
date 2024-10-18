@@ -27,6 +27,8 @@ export default function HeaderComponent() {
         return <h2>Tổng quan</h2>;
       case "/detail":
         return <h2>Chi tiết</h2>;
+      case "/member":
+        return <h2>Thành viên</h2>;
       default:
         return <></>;
     }
