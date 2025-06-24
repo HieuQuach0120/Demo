@@ -1,81 +1,67 @@
 import { useNavigate, Link } from "react-router-dom";
 import { forgotPassword } from "../../service/ForgotService";
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock, faEnvelope} from '@fortawesome/free-solid-svg-icons';
-
+import { faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import './forgot.css';
 
 const Forgot = () => {
   const [hovered, setHovered] = useState(false);
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email.trim())) {
+      setError('Invalid email! Please enter a valid email address.');
+    } else {
+      setError('');
+      setTimeout( () => {
+        alert('Sending the code to your email.');
+      }, 50);
+
+    }
+    };
+
   return (
-    <div style={{ display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  backgroundColor: '#f8f9fa'
-                }}
-    >
-      <form style={{
-                      backgroundColor: '#fff',
-                      padding: '40px',
-                      borderRadius: '8px',
-                      boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-                      textAlign: 'center',
-                      maxWidth: '350px',
-                      width: '100%',
-                    }}>
-        <div style={{ fontSize: '80px',
-                      justifyContent: 'center',
-                      display: 'flex',
-                      height: '110px',
-                      
-                      }} 
-        >
+    <div className="forgot-container">
+      <form className="forgot-wrapper" onSubmit={handleSubmit}>
+        <div className="lock-icon">
           <FontAwesomeIcon icon={faLock} />
         </div>
         <h2>Forgot Password?</h2>
-      <p>
-        You can reset your password here.
-      </p>
-      
-        <div className='mb-3' style={{position: 'relative',
-                                      maxWidth: '300px'
-                                    }}>
-          <FontAwesomeIcon icon={faEnvelope} 
-            style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '10px',
-                    transform: 'translateY(-50%)',
-                    color: '#888',
-                  }}
-          />
+        <p>You can reset your password here.</p>
+
+        <div className='mb-3'>
+          <FontAwesomeIcon className="email-icon" icon={faEnvelope} />
           <input
-            type='email'
+            type='text'
             id='email'
             className='form-control'
-            placeholder=' Email address'
-            required
-            style={{
-              paddingLeft: '40px',
-              borderRadius: '4px',
-              borderColor: '#ccc',
-              boxShadow: 'none',
-            }}
+            placeholder='Email address'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
+          
         </div>
-        <button type='submit'
-                className='btn btn-primary w-100' 
-                style={{backgroundColor:  hovered ? '#c3e6cb' : '#337ab7',
-                        transition: 'background-color 0.3s, color 0.3s',
-                        color:  hovered ? 'black' : 'white',
-                }}
-                      onMouseEnter={() => setHovered(true)}
-                      onMouseLeave={() => setHovered(false)}
+
+        <button
+          type='submit'
+          id="reset-password-button"
+          className='btn btn-primary w-100'
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
         >
           Reset Password
         </button>
+        {error && (
+            <div className="error">
+              {error}
+            </div>
+          )}
       </form>
     </div>
   );

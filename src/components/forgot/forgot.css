@@ -1,0 +1,62 @@
+.forgot-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+.forgot-wrapper{
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+}
+.lock-icon{
+    font-size: 80px;
+    justify-content: center;
+    display: flex;
+    height: 110px;
+}
+.mb-3{
+    position: relative;
+    max-width: 300px;
+}
+.email-icon{
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #888;
+}
+.form-control{
+    padding-left: 40px !important;
+    border-radius: 4px;
+    border-color: #ccc;
+    box-shadow: none;
+    max-width: 300px;
+}
+#reset-password-button {
+  background-color: #337ab7;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#reset-password-button:hover {
+  background-color: #c3e6cb;
+  color: black;
+}
+.error{
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    text-align: center;
+    width: 100%;
+    animation: blink 1s step-start 0s infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
