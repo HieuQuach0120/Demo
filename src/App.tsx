@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-=======
+
+
 import Forgot from "./components/forgot/forgot";
->>>>>>> forgot-password
 import React from "react";
 import { createContext, useState } from "react";
 import "./App.css";
@@ -15,6 +14,9 @@ import Login from "./components/login";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { privateRoutes } from "./route/index";
 import LayoutComponent from "./components/layout";
+
+
+import Register from "./components/register";
 export const AppContext = createContext<any>(null);
 
 function App() {
@@ -34,10 +36,8 @@ function App() {
         <Router>
           <Routes>
             {<Route path="/login" element={<Login />} />}
-<<<<<<< HEAD
-=======
             <Route path="/forgot" element={<Forgot />} />
->>>>>>> forgot-password
+            <Route path="/register" element={<Register />} />
             <Route path="/" element={<LayoutComponent />}>
               {privateRoutes.map((route, index) => {
                 return <React.Fragment key={index}>{route}</React.Fragment>;
