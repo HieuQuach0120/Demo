@@ -1,5 +1,4 @@
 
-
 import Forgot from "./components/forgot/forgot";
 import React from "react";
 import { createContext, useState } from "react";
@@ -14,6 +13,7 @@ import Login from "./components/login";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { privateRoutes } from "./route/index";
 import LayoutComponent from "./components/layout";
+
 
 
 import Register from "./components/register";
@@ -37,6 +37,7 @@ function App() {
           <Routes>
             {<Route path="/login" element={<Login />} />}
             <Route path="/forgot" element={<Forgot />} />
+
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<LayoutComponent />}>
               {privateRoutes.map((route, index) => {
