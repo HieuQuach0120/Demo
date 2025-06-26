@@ -4,7 +4,11 @@ import ErrorMessageCustom from "../common/ErrorMessageCustom";
 import PasswordCustom from "../common/PasswordCustom";
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+import { useNavigate, Link } from "react-router-dom";
+>>>>>>> forgot-password
 import { login } from "../../service/AuthService";
 import jwt from "jwt-decode";
 
@@ -109,7 +113,21 @@ const Login = () => {
                   type="submit"
                   className="w-25 btn-login"
                   label="Login"
+<<<<<<< HEAD
                 />
+=======
+                /> 
+              </div>
+              <div>
+                <Link to="/forgot" className="mt-3 text-decoration-none text-primary"
+                style={{ fontSize: "14px", 
+                         textAlign: "center", 
+                         display: "block"
+                }}
+                >
+                  Forgot password?
+                </Link>
+>>>>>>> forgot-password
               </div>
             </div>
           </div>
