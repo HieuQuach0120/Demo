@@ -4,7 +4,7 @@ import ErrorMessageCustom from "../common/ErrorMessageCustom";
 import PasswordCustom from "../common/PasswordCustom";
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // thêm Link
 import { login } from "../../service/AuthService";
 import jwt from "jwt-decode";
 
@@ -66,7 +66,6 @@ const Login = () => {
                         onChange={(e) => field.onChange(e.target.value)}
                         isValidate={errors["userName"] ? true : false}
                       />
-                      <div>{errors["userName"] ? true : false}</div>
                       {errors["userName"] && (
                         <ErrorMessageCustom error={errors["userName"]} />
                       )}
@@ -112,6 +111,15 @@ const Login = () => {
                 />
               </div>
             </div>
+
+            {/* ✅ Thêm phần liên kết tới trang đăng ký */}
+            <div className="row mt-3">
+              <div className="col-12 d-flex justify-content-center">
+                <span>Bạn chưa có tài khoản? </span>
+                <Link to="/register" className="ms-1 text-primary">Đăng ký</Link>
+              </div>
+            </div>
+            {/* --- */}
           </div>
         </div>
       </div>

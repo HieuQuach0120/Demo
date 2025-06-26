@@ -1,0 +1,52 @@
+/* Register.css */
+
+.register-container {
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.register-box {
+  width: 100%;
+  max-width: 500px;
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.register-title {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.register-box .p-inputtext {
+  width: 100%;
+}
+
+.register-box .p-password {
+  width: 100%;
+}
+
+.register-box .p-button {
+  width: 100%;
+  font-weight: bold;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+@media (max-width: 576px) {
+  .register-box {
+    padding: 30px 20px;
+  }
+
+  .register-title {
+    font-size: 24px;
+  }
+}
