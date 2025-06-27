@@ -109,7 +109,7 @@ const Login = () => {
                   type="submit"
                   className="w-25 btn-login"
                   label="Login"
-                />
+                /> 
               </div>
               <div>
                 <Link to="/forgot" className="mt-3 text-decoration-none text-primary"
@@ -120,6 +120,7 @@ const Login = () => {
                 >
                   Forgot password?
                 </Link>
+
               </div>
             </div>
           </div>
