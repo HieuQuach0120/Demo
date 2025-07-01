@@ -1,5 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
-import { forgotPassword } from "../../service/ForgotService";
+import { forgotPassword } from "../../service/AuthService";
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -10,20 +10,26 @@ const Forgot = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email.trim())) {
       setError('Invalid email! Please enter a valid email address.');
-    } else {
-      setError('');
-      setTimeout( () => {
-        alert('Sending the code to your email.');
-      }, 50);
 
-    }
+      return;
+    } 
+
+    const result = await forgotPassword(email.trim());
+    if (result.success) {
+      setError("");     
+      setTimeout( () => {
+        alert("Your new password is: 123456aA@");
+      },50)
+    } else {
+    }  
+      setError(result.message);
     };
 
   return (
@@ -66,5 +72,4 @@ const Forgot = () => {
     </div>
   );
 };
-
 export default Forgot;

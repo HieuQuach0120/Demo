@@ -4,8 +4,8 @@ import jwt from "jwt-decode";
 import { toast } from "react-toastify";
 // import { ROLE } from "../common/constant";
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
-});
+  baseURL: process.env.REACT_APP_BASE_URL
+ });
 
 instance.interceptors.request.use(
   function (config) {

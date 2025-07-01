@@ -26,3 +26,21 @@ export async function register(params: {
     return false;
   }
 }
+
+//forgot password
+export async function forgotPassword(email: string) {
+  try {
+    const res = await instance.post(`${url}/forgot-password`, { email });
+    return {
+      success: true,
+      message: res.data?.message || "Done",
+    };
+  } catch (error: any) {
+    const message =
+      error?.response?.data?.message || "Something went wrong. Please try again.";
+    return {
+      success: false,
+      message,
+    };
+  }
+}
