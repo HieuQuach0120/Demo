@@ -1,54 +1,76 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { Controller, useForm } from "react-hook-form";
 import InputTextCustom from "../common/InputTextCustom";
 import InputTextareaCustom from "../common/InputTextareaCustom";
 import ErrorMessageCustom from "../common/ErrorMessageCustom";
-import { createMember } from "../../service/MemberService";
+import { createMember, updateMember } from "../../service/MemberService";
+
+interface MemberData {
+  id?: number;
+  name: string;
+  description?: string;
+}
 
 interface DataProps {
   isOpen: boolean;
   onClose: () => void;
   onGetList: () => void;
+  mode: "add" | "update";
+  member?: MemberData | null;
 }
+
 const ModalAddMember: React.FC<DataProps> = ({
   isOpen,
   onClose,
   onGetList,
+  mode,
+  member,
 }) => {
   let defaultValues = {
-    name: "",
+    name: "", 
     description: "",
   };
   const {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm({ defaultValues });
+    reset,
+  } = useForm({defaultValues});
+  useEffect(() => {
+    if (mode === "update" && member) {
+      reset({
+        name: member.name || "",
+        description: member.description || "",
+      });
+    } else {
+      reset({ name: "", description: "" });
+    }
+  }, [member, isOpen, mode, reset]);
 
   const onSubmit = async (data: any) => {
-    if (data.name && data.name !== "") {
-      try {
+    if (!data.name.trim()) return;
+
+    try {
+      if (mode === "add") {
         await createMember(data);
-        onGetList();
-        onClose();
-      } catch {
-        return;
+      } else if (mode === "update" && member?.id) {
+        await updateMember(member.id, data);
       }
+      onGetList();
+      onClose();
+    } catch (error) {
+      console.error("Error saving member:", error);
     }
   };
 
   return (
     <Dialog
-      header="Thêm thành viên"
+      header={mode === "add" ? "Thêm thành viên" : "Cập nhật thành viên"}
       visible={isOpen}
       style={{ width: "50vw" }}
-      onHide={() => {
-        if (!isOpen) return;
-        onClose();
-      }}
-      //   footer={footerContent}
+      onHide={onClose}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-100 h-25">
@@ -59,8 +81,8 @@ const ModalAddMember: React.FC<DataProps> = ({
                 control={control}
                 rules={{
                   required: "Vui lòng nhập tên",
-                  maxLength: {
-                    value: 255,
+                  maxLength: { 
+                    value: 255, 
                     message: "Maxlength 255",
                   },
                 }}
@@ -68,16 +90,13 @@ const ModalAddMember: React.FC<DataProps> = ({
                   <>
                     <InputTextCustom
                       label="Tên"
-                      required={true}
+                      required
                       maxLength={255}
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
-                      isValidate={errors["name"] ? true : false}
+                      isValidate={!!errors.name}
                     />
-                    <div>{errors["name"] ? true : false}</div>
-                    {errors["name"] && (
-                      <ErrorMessageCustom error={errors["name"]} />
-                    )}
+                    {errors.name && <ErrorMessageCustom error={errors.name} />}
                   </>
                 )}
               />
@@ -87,8 +106,8 @@ const ModalAddMember: React.FC<DataProps> = ({
                 name="description"
                 control={control}
                 rules={{
-                  maxLength: {
-                    value: 255,
+                  maxLength: { 
+                    value: 255, 
                     message: "Maxlength 255",
                   },
                 }}
@@ -96,15 +115,13 @@ const ModalAddMember: React.FC<DataProps> = ({
                   <>
                     <InputTextareaCustom
                       label="Ghi chú"
-                      required={false}
                       maxLength={255}
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
-                      isValidate={errors["description"] ? true : false}
+                      isValidate={!!errors.description}
                     />
-                    <div>{errors["description"] ? true : false}</div>
-                    {errors["description"] && (
-                      <ErrorMessageCustom error={errors["description"]} />
+                    {errors.description && (
+                      <ErrorMessageCustom error={errors.description} />
                     )}
                   </>
                 )}
@@ -116,10 +133,10 @@ const ModalAddMember: React.FC<DataProps> = ({
               <Button
                 label="Đóng"
                 icon="pi pi-times"
-                onClick={() => onClose()}
+                onClick={onClose}
                 className="p-button-text"
               />
-              <Button type="submit" label="Lưu" />
+              <Button type="submit" label={mode === "add" ? "Lưu" : "Cập nhật"} />
             </div>
           </div>
         </div>
@@ -127,4 +144,5 @@ const ModalAddMember: React.FC<DataProps> = ({
     </Dialog>
   );
 };
+
 export default ModalAddMember;

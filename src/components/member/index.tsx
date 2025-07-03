@@ -10,7 +10,6 @@ import { AppDispatch, useAppDispatch } from "../../app/store";
 import { baseFoldersById } from "../../app/member/member.action";
 import { deleteMemberById } from "../../service/MemberService";
 import ModalAddMember from "../modal/ModalAddMember";
-import ModalUpdateMember from "../modal/ModalUpdateMember";
 
 interface DataSearch {
   name: string;
@@ -27,7 +26,6 @@ const MemberComponent: React.FC = () => {
 
   // control modals
   const [openModalAddMember, setOpenModalAddMember] = useState(false);
-  const [openModalUpdateMember, setOpenModalUpdateMember] = useState(false);
   const [selectedMember, setSelectedMember] = useState<any>(null);
 
   // React Hook Form for search
@@ -60,7 +58,7 @@ const MemberComponent: React.FC = () => {
   // hàm update và mở Modal update
   const handleEdit = (member: any) => {
     setSelectedMember(member);
-    setOpenModalUpdateMember(true);
+    setOpenModalAddMember(true);
   };
 
   // hàm Delete
@@ -136,22 +134,16 @@ const MemberComponent: React.FC = () => {
         />
       </div>
 
-      {openModalAddMember && (
-        <ModalAddMember
-          isOpen={openModalAddMember}
-          onClose={() => setOpenModalAddMember(false)}
-          onGetList={fetchList}
-        />
-      )}
-
-      {openModalUpdateMember && (
-        <ModalUpdateMember
-          isOpen={openModalUpdateMember}
-          onClose={() => setOpenModalUpdateMember(false)}
-          onGetList={fetchList}
-          member={selectedMember}
-        />
-      )}
+      <ModalAddMember
+      isOpen={openModalAddMember}
+      onClose={() => {
+        setOpenModalAddMember(false);
+        setSelectedMember(null);
+      }}
+      onGetList={fetchList}
+      mode={selectedMember ? "update" : "add"}
+      member={selectedMember}
+    />
     </>
   );
 };
