@@ -35,6 +35,11 @@ export default function SidebarComponent() {
             <i className="pi pi-users"></i> Thành viên
           </NavLink>
         </li>
+        <li>
+          <NavLink to={"/weather"}>
+            <i className="bi bi-cloud-drizzle"></i> Thời tiết
+          </NavLink>
+        </li>
         {/* <li>
             <NavLink to={"/membership"}>
               <i className="pi pi-user-plus font-size-icon"></i> Membership

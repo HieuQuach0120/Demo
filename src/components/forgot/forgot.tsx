@@ -21,7 +21,7 @@ const Forgot = () => {
       return;
     } 
 
-    const result = await forgotPassword(email.trim());
+    const result = await forgotPassword(email.trim()); //call API
     if (result.success) {
       setError("");     
       setTimeout( () => {

@@ -44,3 +44,29 @@ export async function forgotPassword(email: string) {
     };
   }
 }
+
+// Lấy thông tin user đã đăng nhập
+export async function getUserInfo() {
+  try {
+    const res = await instance.get(`${url}/me`);
+    return res.data?.data || null;
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function updateUserInfo(data: { email?: string; phoneNumber?: string }) {
+  try {
+    const res = await instance.post(`/authen/update-profile`, data);
+    return {
+      success: true,
+      message: res.data?.message || "Cập nhật thành công",
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || "Cập nhật thất bại",
+    };
+  }
+}
+
