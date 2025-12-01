@@ -8,6 +8,7 @@ import "primereact/resources/primereact.min.css"; // Core CSS
 import "primeicons/primeicons.css";
 
 import Login from "./components/login";
+import Register from "./components/register";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { privateRoutes } from "./route/index";
 import LayoutComponent from "./components/layout";
@@ -30,6 +31,7 @@ function App() {
         <Router>
           <Routes>
             {<Route path="/login" element={<Login />} />}
+            {<Route path="/register" element={<Register />} />}
             <Route path="/" element={<LayoutComponent />}>
               {privateRoutes.map((route, index) => {
                 return <React.Fragment key={index}>{route}</React.Fragment>;
