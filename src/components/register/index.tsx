@@ -15,6 +15,7 @@ const Register = () => {
     userName: "",
     fullName: "",
     email: "",
+    phoneNumber: "",
     passWord: "",
     confirmPassword: "",
   };
@@ -29,10 +30,11 @@ const Register = () => {
   const onSubmit = async (data: any) => {
     // Gọi API đăng ký (đã mock hoặc thật)
     const res = await register({
-      username: data.userName.trim(),
-      password: data.passWord,
+      userName: data.userName.trim(),
+      passWord: data.passWord,
       fullName: data.fullName,
       email: data.email,
+      phoneNumber: data.phoneNumber,
     });
 
     if (res) {
@@ -135,13 +137,58 @@ const Register = () => {
                   )}
                 />
               </div>
-
+              <div className="col-12 mb-2">
+                <Controller
+                  name="phoneNumber"
+                  control={control}
+                  rules={{
+                    required: "Phone number is required",
+                    pattern: {
+                      value: /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
+                      message: "Invalid phone number format",
+                    },
+                  }}
+                  render={({ field }) => (
+                    <>
+                      <InputTextCustom
+                        label="Phone Number"
+                        required={true}
+                        maxLength={10}
+                        value={field.value}
+                        onChange={(e: any) => {
+                          const val = e.target.value;
+                          if (!val || /^\d+$/.test(val)) {
+                            field.onChange(val);
+                          }
+                        }}
+                        isValidate={errors["phoneNumber"] ? true : false}
+                      />
+                      {errors["phoneNumber"] && (
+                        <ErrorMessageCustom error={errors["phoneNumber"]} />
+                      )}
+                    </>
+                  )}
+                />
+              </div>
+              {/* Password */}
               {/* Password */}
               <div className="col-12 mb-2">
                 <Controller
                   name="passWord"
                   control={control}
-                  rules={{ required: "Password is required" }}
+                  rules={{
+                    required: "Password is required",
+
+                    pattern: {
+                      value: /^[A-Z]/,
+                      message: "Password must start with an uppercase letter",
+                    },
+
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  }}
                   render={({ field }) => (
                     <>
                       <PasswordCustom

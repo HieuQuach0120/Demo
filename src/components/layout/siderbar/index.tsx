@@ -3,8 +3,9 @@ import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // import { checkPermission } from "../../common";
 // import { ROLE } from "../../common/constant";
-// import ChangePassWord from './ChangePassword'
+import ChangePassword from "../../change-password/index";
 import { useState } from "react";
+
 export default function SidebarComponent() {
   const [showDialog, setShowDialog] = useState(false);
   const onHide = () => {
@@ -13,11 +14,7 @@ export default function SidebarComponent() {
   return (
     <>
       <div className="nav-logo"></div>
-      {/* {showDialog && (
-        <ChangePassWord
-          onHide={onHide}
-        />
-      )} */}
+
       <ul className="nav-menu">
         <li>
           <NavLink to={"/"}>
@@ -51,16 +48,10 @@ export default function SidebarComponent() {
       </ul>
       <ul className="nav-menu logout">
         <li>
-          <div
-            className="pt-3 pe-3 pb-3"
-            style={{ paddingLeft: "2rem" }}
-            onClick={() => {
-              setShowDialog(true);
-            }}
-          >
+          <NavLink to={"/change-password"}>
             <i className="pi pi-cog font-size-icon me-2"></i>
             Đổi mật khẩu
-          </div>
+          </NavLink>
         </li>
         <li>
           <NavLink to={"/login"} onClick={() => localStorage.clear()}>
