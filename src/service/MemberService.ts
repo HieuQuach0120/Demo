@@ -27,3 +27,31 @@ export async function createMember(data: any) {
     return toast.error(error.response.data?.message || "Lỗi server.");
   }
 }
+
+// delete
+export async function deleteMember(id: any) {
+  try {
+    const link = url + "/delete/" + id;
+
+    const res = await instance.delete(link);
+    return res.data;
+  } catch (error: any) {
+    return toast.error(error.response?.data?.message || "Lỗi server.");
+  }
+}
+export async function getDetailMember(id: any) {
+  try {
+    const link = url + "/find/" + id;
+    const res = await instance.get(link);
+
+    return res.data?.data || res.data;
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      toast.error("Không tìm thấy member");
+      return null;
+    }
+
+    toast.error(error.response?.data?.message || "Lỗi server.");
+    return null;
+  }
+}

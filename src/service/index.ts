@@ -5,6 +5,10 @@ import { toast } from "react-toastify";
 // import { ROLE } from "../common/constant";
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
+  headers: {
+    "ngrok-skip-browser-warning": "true", // <--- Thêm dòng này để bypass lỗi Ngrok
+    // "Content-Type": "application/json"
+  },
 });
 
 instance.interceptors.request.use(
