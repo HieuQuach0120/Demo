@@ -94,8 +94,10 @@ const MemberComponent: React.FC<{}> = ({}) => {
             </Button>
           </div>
           <DataTable
-            value={listMember.members}
+            value={listMember?.members || []}
             tableStyle={{ minWidth: "50rem" }}
+            loading={loadingMember} // Thêm loading indicator có sẵn của PrimeReact
+            emptyMessage="Không có dữ liệu"
           >
             <Column
               header="#"
