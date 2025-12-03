@@ -22,7 +22,7 @@ export default function PasswordCustom({
   maxLength,
   disabled,
   onChange,
-  onBlur
+  onBlur,
 }: props) {
   return (
     <>

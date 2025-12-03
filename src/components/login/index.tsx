@@ -104,12 +104,23 @@ const Login = () => {
               </div>
             </div>
             <div className="row">
-              <div className="col-12 mt-4 d-flex justify-content-center">
+              <div className="col-12 mt-4 d-flex flex-column align-items-center gap-3">
                 <Button
                   type="submit"
-                  className="w-25 btn-login"
+                  className="btn-login w-100 p-3"
                   label="Login"
+                  style={{ maxWidth: "400px", fontSize: "16px" }}
                 />
+                <div className="mt-3">
+                  <span>Don't have an account? </span>
+                  <span
+                    className="text-primary fw-bold"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate("/register")}
+                  >
+                    Register now
+                  </span>
+                </div>
               </div>
             </div>
           </div>
