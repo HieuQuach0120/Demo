@@ -176,13 +176,6 @@ const MemberComponent: React.FC<{}> = ({}) => {
             showGridlines // Thêm kẻ bảng cho đẹp giống Excel
             stripedRows // Thêm màu xen kẽ các dòng
           >
-            <Column
-              header="#"
-              body={(rowData, { rowIndex }) =>
-                searchedMember ? 1 : dataSearch.offset + rowIndex + 1
-              }
-              style={{ width: "50px" }}
-            />
             <Column field="id" header="ID" style={{ width: "80px" }}></Column>
             <Column field="name" header="Tên" style={{ width: "20%" }}></Column>
             <Column field="description" header="Mô tả"></Column>
