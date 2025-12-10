@@ -33,7 +33,6 @@ const ChangePassword = () => {
     });
 
     if (res.success) {
-      toast.success("Đổi mật khẩu thành công!");
       reset();
     } else {
       const backendErrorMessage = res.message;

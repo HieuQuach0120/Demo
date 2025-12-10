@@ -1,3 +1,4 @@
+import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
 import { Controller, useForm } from "react-hook-form";
 import InputTextCustom from "../common/InputTextCustom";
 import { Button } from "primereact/button";
@@ -78,22 +79,34 @@ const MemberComponent: React.FC<{}> = ({}) => {
     setDataSearch({ ...dataSearch, offset: event.first });
   };
 
-  const handleDelete = async (id: any) => {
-    const isConfirm = window.confirm(
-      "Bạn có chắc chắn muốn xóa thành viên này?"
-    );
-    if (isConfirm) {
-      const res = await deleteMember(id);
-      if (res) {
-        toast.success("Xóa thành công!");
-        if (searchedMember) {
-          setSearchedMember(null);
-          onGetListMember();
-        } else {
-          onGetListMember();
-        }
+  // Hàm thực hiện xóa (được gọi khi người dùng bấm "Có")
+  const acceptDelete = async (id: any) => {
+    const res = await deleteMember(id);
+    if (res) {
+      // Logic làm mới danh sách
+      if (searchedMember) {
+        setSearchedMember(null);
+        onGetListMember();
+      } else {
+        onGetListMember();
       }
     }
+  };
+
+  // Hàm kích hoạt Popup
+  const handleDelete = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: any
+  ) => {
+    confirmPopup({
+      target: event.currentTarget, // Quan trọng: chỉ định popup hiện ở ngay nút bấm này
+      message: "Bạn có chắc chắn muốn xóa thành viên này?",
+      icon: "pi pi-exclamation-triangle",
+      acceptLabel: "Có",
+      rejectLabel: "Không",
+      acceptClassName: "p-button-danger", // Nút đồng ý màu đỏ
+      accept: () => acceptDelete(id), // Gọi hàm xóa nếu chọn "Có"
+    });
   };
 
   const actionBodyTemplate = (rowData: any) => {
@@ -105,7 +118,8 @@ const MemberComponent: React.FC<{}> = ({}) => {
           label="Xóa"
           className="p-button-danger p-button-sm"
           style={{ padding: "0.5rem 1rem" }}
-          onClick={() => handleDelete(rowData.id || rowData._id)}
+          // QUAN TRỌNG: Truyền (e) vào hàm handleDelete
+          onClick={(e) => handleDelete(e, rowData.id || rowData._id)}
         />
       </div>
     );
@@ -198,7 +212,7 @@ const MemberComponent: React.FC<{}> = ({}) => {
           )}
         </div>
       </div>
-
+      <ConfirmPopup appendTo={document.body} />
       {openModalAddMember && (
         <ModalAddMember
           isOpen={openModalAddMember}

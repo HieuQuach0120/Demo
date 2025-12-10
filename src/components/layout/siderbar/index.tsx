@@ -32,6 +32,11 @@ export default function SidebarComponent() {
             <i className="pi pi-users"></i> Thành viên
           </NavLink>
         </li>
+        <li>
+          <NavLink to={"/admin"}>
+            <i className="pi pi-shield"></i> Admin
+          </NavLink>
+        </li>
         {/* <li>
             <NavLink to={"/membership"}>
               <i className="pi pi-user-plus font-size-icon"></i> Membership
