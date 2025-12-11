@@ -1,0 +1,54 @@
+$primary-color: #3b82f6;
+$bg-light: #f8f9fa;
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+.admin-container {
+  padding: 1rem;
+  width: 100%;
+
+  // 1. Khu vực tìm kiếm
+  .search-section {
+    background-color: $bg-light;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: $shadow-sm;
+    margin-bottom: 2rem;
+    border: 1px solid #e5e7eb;
+
+    // Các input bên trong
+    .field-group {
+      margin-bottom: 0.5rem;
+    }
+
+    // Nút bấm
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 1.5rem;
+
+      // Nút tìm kiếm
+      .btn-search {
+        background-color: $primary-color;
+        border: none;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+
+  // 2. Bảng dữ liệu
+  .table-section {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    // Bảng của PrimeReact
+    .p-datatable .p-datatable-thead > tr > th {
+      background-color: #eff6ff;
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+  }
+}

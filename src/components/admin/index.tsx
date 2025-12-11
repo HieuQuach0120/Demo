@@ -9,6 +9,7 @@ import { Dialog } from "primereact/dialog";
 import InputTextCustom from "../common/InputTextCustom";
 import { getListAdmin } from "../../service/AdminService";
 import PdfViewer from "../common/PdfViewer";
+import "./AdminComponent.scss";
 
 const AdminComponent: React.FC = () => {
   const [listData, setListData] = useState<any[]>([]);
@@ -30,7 +31,6 @@ const AdminComponent: React.FC = () => {
 
   const { control, handleSubmit } = useForm({ defaultValues });
 
-  // --- EFFECTS ---
   useEffect(() => {
     fetchData();
   }, [dataSearch]);
@@ -60,7 +60,6 @@ const AdminComponent: React.FC = () => {
     setLoading(false);
   };
 
-  // --- HANDLERS ---
   const onSubmit = (data: any) => {
     setDataSearch({
       ...dataSearch,
@@ -79,114 +78,113 @@ const AdminComponent: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-100 p-2">
-      {/* --- KHUNG TÌM KIẾM --- */}
-      <div className="row mb-3">
-        <div className="col-12 col-md-4 mb-2">
-          <Controller
-            name="userName"
-            control={control}
-            render={({ field }) => (
-              <InputTextCustom
-                {...field}
-                label="Tên tài khoản"
-                placeholder="Nhập tên..."
-                required={false}
+    <div className="admin-container">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-100">
+        {/* --- KHUNG TÌM KIẾM  --- */}
+        <div className="search-section row">
+          <div className="col-12 col-md-4 field-group">
+            <Controller
+              name="userName"
+              control={control}
+              render={({ field }) => (
+                <InputTextCustom
+                  {...field}
+                  label="Tên tài khoản"
+                  placeholder="Nhập tên..."
+                  required={false}
+                />
+              )}
+            />
+          </div>
+
+          <div className="col-12 col-md-4 field-group">
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <InputTextCustom
+                  {...field}
+                  label="Email"
+                  placeholder="Nhập email..."
+                  required={false}
+                />
+              )}
+            />
+          </div>
+
+          {/* Khu vực nút bấm  */}
+          <div className="col-12 col-md-4 action-buttons">
+            <Button
+              type="submit"
+              className="btn-search"
+              label="Tìm kiếm"
+              icon="pi pi-search"
+              loading={loading}
+            />
+            <Button
+              type="button"
+              className="p-button-outlined p-button-secondary"
+              label="Hướng dẫn"
+              icon="pi pi-file-pdf"
+              onClick={() => setShowDocument(true)}
+            />
+          </div>
+        </div>
+
+        {/* --- BẢNG DỮ LIỆU  --- */}
+        <div className="table-section row">
+          <div className="col-12">
+            <DataTable
+              value={Array.isArray(listData) ? listData : []}
+              tableStyle={{ minWidth: "50rem" }}
+              loading={loading}
+              emptyMessage="Không tìm thấy quản trị viên nào."
+              showGridlines
+              stripedRows
+              scrollable
+              scrollHeight="400px"
+            >
+              <Column field="id" header="ID" style={{ width: "80px" }} />
+              <Column
+                field="username"
+                header="Username"
+                sortable
+                style={{ minWidth: "150px" }}
               />
-            )}
-          />
-        </div>
-
-        <div className="col-12 col-md-4 mb-2">
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <InputTextCustom
-                {...field}
-                label="Email"
-                placeholder="Nhập email..."
-                required={false}
+              <Column
+                field="email"
+                header="Email"
+                style={{ minWidth: "250px" }}
               />
-            )}
-          />
+              <Column
+                field="phoneNumber"
+                header="Số điện thoại"
+                style={{ width: "150px" }}
+              />
+            </DataTable>
+
+            <Paginator
+              first={dataSearch.offset}
+              rows={dataSearch.limit}
+              totalRecords={totalRecords}
+              onPageChange={handlePageChange}
+              className="justify-content-end border-top-0"
+            />
+          </div>
         </div>
 
-        <div className="col-12 col-md-4 mt-md-4 mb-2 d-flex align-items-center">
-          <Button
-            type="submit"
-            className="btn-login"
-            label="Tìm kiếm"
-            icon="pi pi-search"
-            loading={loading}
-          />
-          <Button
-            type="button"
-            className="p-button-outlined p-button-secondary"
-            label="Hướng dẫn"
-            icon="pi pi-file-pdf"
-            onClick={() => setShowDocument(true)}
-          />
-        </div>
-      </div>
-
-      <hr />
-
-      {/* --- BẢNG DỮ LIỆU --- */}
-      <div className="row">
-        <div className="col-12">
-          <DataTable
-            value={Array.isArray(listData) ? listData : []}
-            tableStyle={{ minWidth: "50rem" }}
-            loading={loading}
-            emptyMessage="Không tìm thấy quản trị viên nào."
-            showGridlines
-            stripedRows
-            scrollable
-            scrollHeight="400px"
-          >
-            <Column field="id" header="ID" style={{ width: "80px" }} />
-
-            <Column
-              field="username"
-              header="Username"
-              sortable
-              style={{ minWidth: "150px" }}
-            />
-
-            <Column
-              field="email"
-              header="Email"
-              style={{ minWidth: "250px" }}
-            />
-
-            <Column
-              field="phoneNumber"
-              header="Số điện thoại"
-              style={{ width: "150px" }}
-            />
-          </DataTable>
-
-          <Paginator
-            first={dataSearch.offset}
-            rows={dataSearch.limit}
-            totalRecords={totalRecords}
-            onPageChange={handlePageChange}
-            className="justify-content-end"
-          />
-        </div>
-      </div>
-      {/* --- 5. MODAL HIỂN THỊ PDF --- */}
-      <Dialog
-        header="Tài liệu hướng dẫn "
-        visible={showDocument}
-        style={{ width: "80vw", maxWidth: "1000px" }}
-        maximizable
-        onHide={() => setShowDocument(false)}
-      >
-        <PdfViewer fileUrl="/Mẫu đề cương.pdf" />
-      </Dialog>
-    </form>
+        {/* --- MODAL HIỂN THỊ PDF --- */}
+        <Dialog
+          header="Tài liệu hướng dẫn"
+          visible={showDocument}
+          style={{ width: "80vw", maxWidth: "1000px" }}
+          maximizable
+          onHide={() => setShowDocument(false)}
+        >
+          <PdfViewer />
+        </Dialog>
+      </form>
+    </div>
   );
 };
 

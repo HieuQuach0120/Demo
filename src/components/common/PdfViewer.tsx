@@ -10,10 +10,10 @@ import "react-pdf/dist/Page/TextLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface Props {
-  fileUrl: string;
+  //   fileUrl: string;
 }
 
-const PdfViewer: React.FC<Props> = ({ fileUrl }) => {
+const PdfViewer: React.FC<Props> = ({}) => {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0); // Thêm chức năng Zoom
@@ -71,7 +71,7 @@ const PdfViewer: React.FC<Props> = ({ fileUrl }) => {
         }}
       >
         <Document
-          file={fileUrl}
+          file={"/Mẫu đề cương.pdf"}
           onLoadSuccess={onDocumentLoadSuccess}
           loading={
             <div className="text-center p-5">

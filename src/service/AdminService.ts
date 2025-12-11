@@ -10,7 +10,7 @@ export async function getListAdmin(params: any) {
 
     return res.data?.data || null;
   } catch (error: any) {
-    toast.error(error.response?.data?.message || "Lỗi lấy danh sách Admin.");
+    //toast.error(error.response?.data?.message || "Lỗi lấy danh sách Admin.");
     return null;
   }
 }
